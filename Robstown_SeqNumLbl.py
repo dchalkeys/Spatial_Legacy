@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[ ]:
-
 
 # Author: Dylan Albrecht
 # Date: 7/26/23
@@ -65,10 +60,10 @@ with arcpy.da.SearchCursor('Lots_layer', 'Lots_fields') as cursor1:
         rec=0
         
         # Iterate through selected gravesites applying sequential numbers in order of decreasing latitude
-        rows = arcpy.UpdateCursor('Gravesites_layer', Gravesites_fields)
-        for row in rows:
+        cursor2 = arcpy.UpdateCursor('Gravesites_layer', Gravesites_fields)
+        for row in cursor2:
             row.setValue(row[0], autoIncrement())
-            rows.updateRow(row)
+            cursor2.updateRow(row)
 
         # Clear selections
         arcpy.management.SelectLayerByAttribute('Lots_layer', 'CLEAR_SELECTION')
